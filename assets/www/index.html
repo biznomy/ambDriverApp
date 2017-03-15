@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+
+		<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height" />
+
+		<!--Library CSS-->
+		<link rel="stylesheet" href="lib/css/jquery.mobile-1.4.3.css" />
+		
+		<!--Icons-->
+		<link type="text/css" href="flatIcon/flaticon.css" rel="stylesheet" />
+		<!--Jquery-->
+		<script type="text/javascript" src="lib/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="lib/js/jquery.mobile-1.4.3.min.js"></script>
+
+       <!-- alert box js and css -->
+		<link type="text/css" href="lib/zebra/css/default/zebra_dialog.css" rel="stylesheet" />
+		<script type="text/javascript" src="lib/zebra/javascript/zebra_dialog.js"></script>		
+		
+		<!--Custom Style-->
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<!--Validation-->
+		<script src="lib/js/date.format.js"></script>
+		<script src="lib/js/validation.js"></script>
+		<script src="lib/servicejs/signin.js"></script>
+		<script src="lib/servicejs/getTodayJobs.js"></script>
+		<script src="lib/servicejs/viewJobDetail.js"></script>
+		<!--Custom js-->
+		<script type="text/javascript" src="js/index.js"></script>
+		
+		<title>Driver App</title>
+		
+	</head>
+	<body>
+
+		<!--Login Page-->
+		<div id="login" data-role="page" class="logContent">
+			<div data-role="header"class="bodyHeader" data-position="fixed">
+				<h1 class="headerFont">LogIn</h1>
+			</div>
+
+			<div data-role="content bodyContant">
+				<br/>
+
+				<div id="input_container" class="box" style="background-color:#CB2C32 !important;">
+					<div class="flaticon-envelope32" id="input-iconDiv" style="top:6px;"></div>
+					<div id="inputDiv">
+						<input type="email" class="input" id="signin_e" placeholder="email">
+					</div>
+				</div>
+
+				<div id="input_container" class="box">
+					<div class="flaticon-padlock17" id="input-iconDiv"></div>
+					<div id="inputDiv">
+						<input type="password" class="input" id="signin_p" placeholder="password">
+					</div>
+				</div>
+				<script>
+					var sign_in = [signin_e, signin_p];
+				</script>
+				<div id="input_container" >
+					<button class="btn3 margin-auto box" onclick="logIn(sign_in)">
+						LOGIN
+					</button>
+				</div>
+			</div>
+       
+		</div>
+
+		<!--Page jobs-->
+		<div id="jobs" data-role="page">
+			<div data-role="header"class="bodyHeader" data-position="fixed">
+				<h1 class="headerFont">Today Jobs </h1>
+			</div>
+
+			<div data-role="content bodyContant" >
+	                <div class="grey box" style="min-height:30px;margin-bottom:0px !important;background-color:#DDD9D9 !important;">
+	                	<label id="clockbox" style="text-align:center;font:14pt Arial; color:#1F1C1C;">current date and time</label>
+					</div>
+					<ul class="driverJobsList" data-role="listview">
+                    </ul>
+				
+				<div data-role="popup" id="jobsLoader" data-overlay-theme="b" class="ui-icon flaticon-loading homeIcon"
+					data-theme="b" data-dismissible="false" style="max-width:400px;">
+					</div>
+			</div>
+			<div style="position:absolute;bottom:0;left:0;right:0;">
+				<div data-role="navbar" class="btn2-dark headerFont" onclick="nextPage('#callVendor','#jobs')">
+					Call Centre
+				</div>
+			</div>
+		</div>
+		<!--Page jobs-detail-->
+		<div data-role="page" id="jobs-detail">
+			<div data-role="header" class="bodyHeader"data-position="fixed" data-tap-toggle="false">
+				<a class="header-btn ui-nodisc-icon"  data-icon="back"  data-rel="back" style="padding-left:20px;margin-top:5px;">BACK</a>
+				<h1 class="headerFont">Jobs Detail</h1>
+			</div>
+			<div data-role="content" style="">
+			<div style="position:absolute;left:0;right:0;bottom:100px;top:40px"><div style="overflow-y: auto;height:100%;">	
+				<div class="box" style="background-color:#DDD9D9 !important;">
+					<div style="text-align:center;vertical-align:middle;">
+						<div style="font: bold 20px;color:#000"><b id="job-id"style="font-size:20px;float:left;">Job1</b>
+							<b id="job-time"style="font-size:20px;padding-left:62px;">11:30</b>
+							<b style="font-size:14px;float:right;padding-top:4px;">( ETA 20 Mins )</b>
+						</div>
+					</div>
+				</div>
+				<div class="grey box" style="">
+					<div>
+						<div ><b style="font-size: 20px !important;font-style: bold !important;color:black">Pick-up :</b><b id="fadd1"> Alex Hospital</b></div>
+						 <p><b style="font-size: 18px !important;font-style: bold !important;color:black">Remarks : </b>
+							<div>
+								<p id="fadd2"style="text-align: justify;padding-left:10px;">
+									Please help me to my unit, Block 120 #12-234, Also.....
+								</p>
+							</div>
+						</p>
+					</div>
+				</div>
+				<div class="grey box" style="">
+					<div>
+						<div ><b style="font-size: 20px !important;font-style: bold !important;color:black">To :</b><b id="tadd1"> Upper Bukit Timah</b></div>
+						<p><b style="font-size: 18px !important;font-style: bold !important;color:black">Remarks : </b>
+							<div>
+								<p id="tadd2"style="text-align: justify;padding-left:10px;">
+									Please help me to my unit, Block 120 #12-234, Also.....
+								</p>
+							</div>
+						</p>
+					</div>
+				</div>
+			</div>	</div>
+				<div data-role="popup" id="jobDetailLoader" data-overlay-theme="b" class="flaticon-loading homeIcon"
+				data-theme="b" data-dismissible="false" style="max-width:400px;"></div>
+		</div>
+			<!--Content-->
+			<!-- footer-->
+			<div data-role="footer" data-position="fixed">
+				<div style="position:absolute;left:0;right:0;bottom:0px;height:100px;" class="">
+					<div style="height:100%;width:49.40%;float:left;"> 
+						<div id="startedJob"style="float:left;" class="driverAppButton" onclick="nextPage('#startedJob','#startedJob')" > 
+						 Start
+					    </div>
+						<div id="pickedUpClient" class="driverAppButton ui-state-disabled" style="float:right;" onclick="nextPage('#pickedUpClient','#startedJob')">
+					      Picked Up 
+						 </div>
+					</div>
+					<div style="height:100%;width:49.40%;float:right;"> 
+						<div id="jobDone" class="driverAppButton ui-state-disabled" style="float:left;" onclick="nextPage('#jobDone','#jobs')" >
+						 Done
+						 </div>
+						 <div id="reportProblem" class="driverAppButton ui-state-disabled" style="float:right;" onclick="nextPage('#reportProblem','#reportType')"> 
+						Report 
+					    </div>
+					</div>
+				</div>
+			 </div>
+		</div>
+
+		<!--Page Report-->
+		<div id="reportType" data-role="page">
+			<div data-role="header"class="bodyHeader" data-position="fixed">
+				<a class="header-btn ui-nodisc-icon"  data-icon="back"  data-rel="back" style="padding-left: 20px;">BACK</a>
+				<h1>Report</h1>
+			</div>
+
+			<div data-role="content" >
+						<div id= "breakdown" class="grey buttons box" onclick="selectReportType('breakdown')">
+							Ambulance Breakdown
+						</div>
+						<div id= "jam" class="grey buttons box" onclick="selectReportType('jam')">
+							Traffic Jam
+						</div>
+						<div id= "other" style="margin:15px">
+							<label>Others Reason</label>
+							<textarea  height= "117px !important"class="grey buttons box" placeholder="example “I am trap under a tree, awaiting for
+replacement to come” "></textarea>
+						</div>
+						<div class="grey buttons box" onclick="selectReportType('other')">
+							Other
+						</div>
+					
+			</div>
+
+		</div>
+
+		<!-- swipe js -->
+		<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+		
+	</body>
+</html>
